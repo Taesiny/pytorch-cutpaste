@@ -78,6 +78,8 @@ def eval_model(modelname, defect_type, device="cpu", save_plots=False, size=256,
             labels.append(label.cpu())
     labels = torch.cat(labels)
     embeds = torch.cat(embeds)
+    print('labels',labels.shape)
+    print('embeds',embeds.shape)
 
     if train_embed is None:
         train_embed = get_train_embeds(model, size, defect_type, test_transform, device)
@@ -88,7 +90,7 @@ def eval_model(modelname, defect_type, device="cpu", save_plots=False, size=256,
 
     #create eval plot dir
     if save_plots:
-        eval_dir = Path("eval") / modelname
+        eval_dir = Path("eval") / str(modelname)[:-4]
         eval_dir.mkdir(parents=True, exist_ok=True)
         
         # plot tsne
